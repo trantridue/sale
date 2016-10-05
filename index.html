@@ -11,9 +11,70 @@
 	<!-- LOAD ANGULAR -->
 	<script src="js/angular.min.js"></script>
 
-	<!-- PROCESS FORM WITH AJAX (NEW) -->
-	<script>
+<script type="text/javascript">
+            $(function () {
+                var cancelKeypress = false;
+                // Need to cancel event (only applies to IE)
+                if ( "onhelp" in window ) {
+                    // (jQuery cannot bind "onhelp" event)
+                    window.onhelp = function () {
+                        return false;
+                    };
+                }
+                $(document).keydown(function ( evt ) {
+                    // F1 pressed
+                    if ( evt.keyCode === 112 ) {
+                        if ( window.event ) {
+                            // Write back to IE's event object
+                            window.event.keyCode = 0;
+                        }
+                        cancelKeypress = true;
 
+                        // Trigger custom help here
+                        alert("F1");
+
+                        return false;
+                    }
+					// F2 pressed
+                    if ( evt.keyCode === 113 ) {
+                        if ( window.event ) {
+                            // Write back to IE's event object
+                            window.event.keyCode = 0;
+                        }
+                        cancelKeypress = true;
+
+                        // Trigger custom help here
+                        alert("F2");
+
+                        return false;
+                    }
+					// F3 pressed
+                    if ( evt.keyCode === 114 ) {
+                        if ( window.event ) {
+                            // Write back to IE's event object
+                            window.event.keyCode = 0;
+                        }
+                        cancelKeypress = true;
+
+                        // Trigger custom help here
+                        alert("F3");
+
+                        return false;
+                    }
+                });
+                // Needed for Opera (as in Andy E's answer)
+                $(document).keypress(function ( evt ) {
+                    if ( cancelKeypress ) {
+                        cancelKeypress = false; // Only this keypress
+                        return false;
+                    }
+                });
+            });
+        </script>
+	
+	<!-- PROCESS FORM WITH AJAX (NEW) -->
+	
+	<script>
 		// define angular module/app
 		var formApp = angular.module('formApp', []);
 
@@ -68,7 +129,7 @@
 <body ng-app="formApp" ng-controller="formController">
 <div class="container">
 <div class="col-md-6 col-md-offset-3">
-
+	
 	<!-- PAGE TITLE -->
 	<div class="page-header">
 		<h1><span class="glyphicon glyphicon-tower"></span> Submitting Forms with Angular</h1>
